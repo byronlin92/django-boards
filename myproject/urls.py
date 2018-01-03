@@ -6,18 +6,24 @@ from boards import views
 
 
 urlpatterns = [
+    #boards
     url(r'^$', views.BoardListView.as_view(), name='home'),
-    url(r'^signup/$', account_views.signup, name='signup'),
-    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-    url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'),name='login'),
 
+    #topics
     url(r'^boards/(?P<pk>\d+)/$', views.TopicListView.as_view(), name='board_topics'),
     url(r'^boards/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
 
+    #posts
     url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.PostListView.as_view(), name='topic_posts'),
     url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/reply/$', views.reply_topic, name='reply_topic'),
-    url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$', views.PostUpdateView.as_view(), name='edit_post'),
+    url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$', views.PostUpdateView.as_view(),
+        name='edit_post'),
 
+
+
+    url(r'^signup/$', account_views.signup, name='signup'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
+    url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     url(r'^admin/', admin.site.urls),
     url(r'^reset/$',
         auth_views.PasswordResetView.as_view(
